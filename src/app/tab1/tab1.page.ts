@@ -25,4 +25,8 @@ export class Tab1Page {
     },
   ];
   constructor() {}
+  openAlbum(data:any){
+    console.log(data);
+    
+  }
 }
