@@ -9,12 +9,7 @@ import { AlbumPageRoutingModule } from './album-routing.module';
 import { AlbumPage } from './album.page';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    AlbumPageRoutingModule
-  ],
-  declarations: [AlbumPage]
+  imports: [CommonModule, FormsModule, IonicModule, AlbumPageRoutingModule],
+  declarations: [AlbumPage],
 })
 export class AlbumPageModule {}

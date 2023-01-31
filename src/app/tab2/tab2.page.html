@@ -1,17 +1,57 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <ion-title>
-      Tab 2
-    </ion-title>
+    <div class="header">
+      <h2 class="section-header-Global">Search</h2>
+      <ion-searchbar
+        placeholder="Artists, Songs, Lyrics and More"
+        [debounce]="250"
+        (ionChange)="onSearchChange($event)"
+      ></ion-searchbar>
+    </div>
   </ion-toolbar>
 </ion-header>
+<ion-content>
+  <ion-row class="ion-no-padding" *ngIf="searchValue === ''">
+    <ion-col size="9">
+      <h2 class="section-header-Global">Top Songs Global</h2>
+    </ion-col>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 2</ion-title>
-    </ion-toolbar>
-  </ion-header>
+    <!-- Horizontal scroll view -->
+    <!-- <ion-slides [options]="opts">
+      <ion-slide *ngFor="let track of tracks" tappable>
+        <img [src]="track.images?.background" />
+        <span class="title">{{ track.title }}</span>
+      </ion-slide>
+    </ion-slides> -->
+    <ion-list>
+      <ion-item
+        *ngFor="let track of tracks"
+        lines="none"
+        (click)="songSelected()"
+        [style.display]=" track.images?.coverarthq? '' :'none' "
+      >
+        <div>
+          <ion-img [src]="track.images?.coverarthq" />
+          <h4>{{ track.title }}</h4>
+        </div>
+      </ion-item>
+    </ion-list>
+    <!-- <ion-infinite-scroll threshold="25%" [disabled]="true" position="bottom" (ionInfinite)="loadData($event)">
+      <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
+      </ion-infinite-scroll-content>
+    </ion-infinite-scroll> -->
+  </ion-row>
 
-  <app-explore-container name="Tab 2 page"></app-explore-container>
+  <!-- <ion-row class="ion-no-padding" *ngFor="let item of searchValue.artists">
+    <ion-col size="2">
+      <ion-img [src]="item?.hits.avatar"></ion-img>
+    </ion-col>
+    <ion-col size="9">
+      <ion-title>{{item.name}}</ion-title>
+      <p>Artist</p>
+    </ion-col>
+    <ion-col size="2">
+      <ion-icon name="arrow-forward"></ion-icon>
+    </ion-col>
+  </ion-row> -->
 </ion-content>
