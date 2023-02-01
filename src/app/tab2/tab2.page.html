@@ -1,57 +1,62 @@
 <ion-header>
-  <ion-toolbar>
-    <div class="header">
-      <h2 class="section-header-Global">Search</h2>
-      <ion-searchbar
-        placeholder="Artists, Songs, Lyrics and More"
-        [debounce]="250"
-        (ionChange)="onSearchChange($event)"
-      ></ion-searchbar>
-    </div>
+  <ion-toolbar class="ion-no-padding">
+    <h2 class="section-header-Global">Search</h2>
+    <ion-searchbar
+      placeholder="Artists, Songs, Lyrics and More"
+      [debounce]="250"
+      (ionChange)="onSearchChange($event)"
+    ></ion-searchbar>
   </ion-toolbar>
 </ion-header>
+
 <ion-content>
-  <ion-row class="ion-no-padding" *ngIf="searchValue === ''">
-    <ion-col size="9">
+  <ion-row *ngIf="searchValue === ''">
+    <ion-col size="12" class="ion-no-padding">
       <h2 class="section-header-Global">Top Songs Global</h2>
     </ion-col>
-
-    <!-- Horizontal scroll view -->
-    <!-- <ion-slides [options]="opts">
-      <ion-slide *ngFor="let track of tracks" tappable>
-        <img [src]="track.images?.background" />
-        <span class="title">{{ track.title }}</span>
-      </ion-slide>
-    </ion-slides> -->
     <ion-list>
       <ion-item
         *ngFor="let track of tracks"
         lines="none"
-        (click)="songSelected()"
-        [style.display]=" track.images?.coverarthq? '' :'none' "
+        (click)="onSongSelect(track)"
+        [style.display]=" track.avatar ? '' :'none' "
       >
         <div>
-          <ion-img [src]="track.images?.coverarthq" />
-          <h4>{{ track.title }}</h4>
+          <ion-img [src]="track.avatar" />
+          <h4>{{ track.songTitle }}</h4>
         </div>
       </ion-item>
     </ion-list>
+
     <!-- <ion-infinite-scroll threshold="25%" [disabled]="true" position="bottom" (ionInfinite)="loadData($event)">
       <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
       </ion-infinite-scroll-content>
     </ion-infinite-scroll> -->
   </ion-row>
 
-  <!-- <ion-row class="ion-no-padding" *ngFor="let item of searchValue.artists">
-    <ion-col size="2">
-      <ion-img [src]="item?.hits.avatar"></ion-img>
-    </ion-col>
-    <ion-col size="9">
-      <ion-title>{{item.name}}</ion-title>
-      <p>Artist</p>
-    </ion-col>
-    <ion-col size="2">
-      <ion-icon name="arrow-forward"></ion-icon>
-    </ion-col>
-  </ion-row> -->
+  <div class="ion-padding" *ngIf="searchValue !== ''">
+    <ion-row
+      *ngFor="let item of searchData"
+      class="searchRow ion-align-items-center"
+      (click)="navigationWithHerf(item.herf)"
+      tappable
+    >
+      <ion-col size="2">
+        <ion-img [src]="item?.avatar"></ion-img>
+      </ion-col>
+      <ion-col size="8">
+        <h4>{{item?.songTitle ? item.songTitle : item.artist}}</h4>
+        <p class="ion-no-padding">
+          {{item?.songTitle ? 'Song - '+ item?.artist: 'Artist'}}
+        </p>
+      </ion-col>
+      <ion-col size="2" class="iconCol">
+        <ion-icon
+          class="ion-algin-self-end"
+          color="light"
+          name="arrow-forward"
+        ></ion-icon>
+      </ion-col>
+    </ion-row>
+  </div>
 </ion-content>

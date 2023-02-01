@@ -1,3 +1,11 @@
+ion-header {
+  --border: 0px;
+
+  ion-toolbar {
+    --background: var(--ion-color-dark);
+  }
+}
+
 ion-searchbar {
   --background: var(--ion-color-medium-shade);
   --border-radius: 12px;
@@ -9,11 +17,41 @@ ion-searchbar {
   font-family: "spotify-light";
 }
 
-ion-row {
+.searchRow {
+  border-bottom: 0.5px solid #1a1919 !important;
+  overflow: hidden;
+  height: 80px;
+  .iconCol {
+    display: flex;
+    justify-content: center !important;
+  }
   ion-col {
+    ion-img {
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    ion-icon {
+      color: #ffffff;
+      font-size: 12px;
+      //  transform: rotate(90deg);
+    }
+
     h2 {
       font-size: 18px;
       color: var(--ion-color-light-shade);
+    }
+
+    h4 {
+      color: #fff;
+      font-size: 15px;
+      font-family: "spotify";
+      font-weight: lighter;
+    }
+    p {
+      color: rgb(197, 197, 197);
+      font-size: 12px;
+      font-family: "spotify";
+      font-weight: lighter;
     }
   }
 }
