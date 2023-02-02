@@ -7,12 +7,9 @@ import { MusicService } from '../services/music.service';
 })
 export class Tab3Page implements OnInit {
   constructor(private musicService: MusicService) {}
-
   ngOnInit() {}
 
-  play() {
-    console.log('play');
-  }
+  play() {}
 
   stop() {}
 

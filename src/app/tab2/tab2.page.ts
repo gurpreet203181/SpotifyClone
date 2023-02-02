@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MusicService, music } from 'src/app/services/music.service';
 import { Browser } from '@capacitor/browser';
+import { InfiniteScrollCustomEvent } from '@ionic/angular';
 
 @Component({
   selector: 'app-tab2',
@@ -11,6 +12,7 @@ export class Tab2Page implements OnInit {
   tracks!: any[];
   searchData!: any[];
   searchValue: string = '';
+  currentPage: number = 1;
 
   constructor(private musicService: MusicService) {}
 
@@ -21,7 +23,7 @@ export class Tab2Page implements OnInit {
   //getting top tracks using getTopTracks() method from music service
 
   getTopTracks() {
-    this.musicService.getTopTracks().subscribe((res) => {
+    this.musicService.getTopTracks(this.currentPage).subscribe((res) => {
       this.tracks = res;
       console.log(this.tracks, 'tracks');
     });
@@ -48,5 +50,18 @@ export class Tab2Page implements OnInit {
   //naviagtion musice provider link of song/artist
   async navigationWithHerf(herf: string) {
     await Browser.open({ url: herf });
+  }
+
+  //load More data from music service
+  onIonInfinite(ev: any) {
+    this.currentPage++;
+
+    this.getTopTracks();
+    /* if (ev) {
+      ev.target.disable = this.totalPages === this.currentPage;
+    }*/
+    setTimeout(() => {
+      (ev as InfiniteScrollCustomEvent).target.complete();
+    }, 500);
   }
 }

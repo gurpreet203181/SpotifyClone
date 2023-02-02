@@ -1,0 +1,84 @@
+ion-header {
+  --background: transparent !important;
+}
+ion-toolbar {
+  height: 20px;
+  background: transparent;
+}
+ion-content {
+  ion-button {
+    --background: var(--ion-color-light-gray);
+    height: 5px;
+    width: 30px !important;
+  }
+}
+
+ion-grid {
+  height: 100%;
+  width: 100%;
+  display: grid;
+  align-items: center;
+}
+.avatarImg {
+  border: 1px;
+  border-radius: 10px;
+}
+.titleCol {
+  display: inline-block;
+  justify-content: flex-start;
+  align-items: flex-start;
+  h4 {
+    color: #fff;
+    font-size: 14px;
+    font-weight: bold;
+    font-family: "spotify";
+  }
+  p {
+    color: var(--ion-color-light-gray);
+    font-size: 12px;
+    font-weight: lighter;
+    font-family: "spotify";
+  }
+}
+.iconCol {
+  display: flex;
+  justify-content: flex-end;
+  align-items: start;
+  color: #fff;
+}
+
+ion-progress-bar {
+  --progress-background: #fff;
+  --background: var(--ion-color-light-gray);
+  border: 1px;
+  border-radius: 3px;
+  height: 6px;
+}
+
+.time {
+  display: flex;
+  justify-content: space-between;
+  color: var(--ion-color-light-gray);
+  font-size: 10px;
+  font-weight: lighter;
+}
+.palyerRow {
+  ion-col {
+    ion-icon {
+      color: #ffffff;
+      font-size: 30px;
+    }
+  }
+}
+.volumeRow {
+  ion-col {
+    ion-progress-bar {
+      --background: var(--ion-color-light-gray);
+      --progress-background: var(--ion-color-light-gray);
+    }
+    ion-icon {
+      color: var(--ion-color-light-gray);
+      font-size: 12px;
+    }
+  }
+}

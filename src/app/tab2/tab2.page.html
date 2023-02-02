@@ -28,17 +28,25 @@
       </ion-item>
     </ion-list>
 
-    <!-- <ion-infinite-scroll threshold="25%" [disabled]="true" position="bottom" (ionInfinite)="loadData($event)">
-      <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
+    <ion-infinite-scroll
+      threshold="25%"
+      [disabled]="true"
+      position="bottom"
+      (ionInfinite)="onIonInfinite($event)"
+    >
+      <ion-infinite-scroll-content
+        loadingSpinner="bubbles"
+        loadingText="Loading more data..."
+      >
       </ion-infinite-scroll-content>
-    </ion-infinite-scroll> -->
+    </ion-infinite-scroll>
   </ion-row>
 
   <div class="ion-padding" *ngIf="searchValue !== ''">
     <ion-row
       *ngFor="let item of searchData"
       class="searchRow ion-align-items-center"
-      (click)="navigationWithHerf(item.herf)"
+      (click)=" item.songTitle? onSongSelect(item) : navigationWithHerf(item.shareHerf)"
       tappable
     >
       <ion-col size="2">

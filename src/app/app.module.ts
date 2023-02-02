@@ -8,8 +8,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { Media } from '@ionic-native/media/ngx';
+import { PlayerModalPage } from './modal/player-modal/player-modal.page';
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, PlayerModalPage],
   imports: [
     BrowserModule,
     IonicModule.forRoot(),

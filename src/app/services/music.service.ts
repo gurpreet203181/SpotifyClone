@@ -9,7 +9,7 @@ export interface music {
   artist: string;
   avatar: string;
   audioUrl?: string;
-  ShareHerf: string;
+  shareHerf: string;
   isPlaying?: boolean;
 }
 
@@ -28,8 +28,10 @@ export class MusicService {
 
   ngOnInit() {}
 
+  //https://shazam.p.rapidapi.com/charts/track?locale=en-US&pageSize=20&startFrom=20
+
   //method to get top tracks from rapi
-  getTopTracks(): Observable<any> {
+  getTopTracks(page: number): Observable<any> {
     return this.http
       .get('../../assets/mockdata/tracks/tracks.json', {
         headers: {
@@ -47,7 +49,7 @@ export class MusicService {
               artist: item?.subtitle,
               avatar: item?.images?.coverarthq,
               audioUrl: item?.hub?.actions?.[1].uri,
-              ShareHerf: item?.share?.href,
+              shareHerf: item?.share?.href,
             });
           });
 
@@ -76,7 +78,7 @@ export class MusicService {
               artist: item.track.subtitle,
               avatar: item.track?.images.coverarthq,
               audioUrl: item?.track.hub?.actions?.[1].uri,
-              ShareHerf: item.track.share.href,
+              shareHerf: item.track.share.href,
             });
           });
 
@@ -86,7 +88,7 @@ export class MusicService {
               key: item.artist.adamid,
               artist: item.artist.name,
               avatar: item.artist.avatar,
-              ShareHerf: item.artist.weburl,
+              shareHerf: item.artist.weburl,
             });
           });
 
@@ -96,28 +98,29 @@ export class MusicService {
   }
 
   //preLoad audio with url/path
-  preloadAudio(track) {
+  async preloadAudio(track) {
     //setting current track
-
     this.curentTrack = track.key;
-    NativeAudio.preload({
+
+    await NativeAudio.preload({
       assetId: track.key,
       assetPath: track.audioUrl,
       audioChannelNum: 1,
       isUrl: track.audioUrl ? true : false,
-      volume: 0.5,
+      volume: 0.1,
     });
+
     this.currentTrackData.next(track);
   }
 
   //method to play audio with refrence id of audio preloaded
-  playAudio() {
-    setTimeout(() => {
-      NativeAudio.play({
-        assetId: this?.curentTrack,
-        time: 0,
-      });
-    }, 500);
+  async playAudio() {
+    await NativeAudio.play({
+      assetId: this?.curentTrack,
+      time: 0,
+    });
+
+    this.getDuration();
   }
 
   //Method to stop audio
@@ -138,8 +141,8 @@ export class MusicService {
     return this.currentTrackData;
   }
 
-  isAudioPlaying() {
-    let response: any = '';
+  isAudioPlaying(): Observable<boolean> {
+    let response;
 
     NativeAudio.isPlaying({
       assetId: this?.curentTrack,
@@ -147,5 +150,16 @@ export class MusicService {
       response = result.isPlaying;
     });
     return response;
+  }
+  /**
+   * this method will get the current time of a playing audio file.
+   * only works if channels == 1
+   */
+  getDuration() {
+    NativeAudio.getDuration({
+      assetId: this.curentTrack,
+    }).then((result) => {
+      console.log(result, 'duration from getDuration');
+    });
   }
 }

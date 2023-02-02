@@ -11,6 +11,10 @@ ion-content {
 ion-slide {
   display: block;
   text-align: left;
+  img {
+    border: 1px;
+    border-radius: 10px;
+  }
 }
 
 ion-slides {
