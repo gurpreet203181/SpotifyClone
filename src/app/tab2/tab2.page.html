@@ -18,7 +18,7 @@
       <ion-item
         *ngFor="let track of tracks"
         lines="none"
-        (click)="onSongSelect(track)"
+        (click)="onSongSelect(track,'TopTrack')"
         [style.display]=" track.avatar ? '' :'none' "
       >
         <div>
@@ -29,8 +29,6 @@
     </ion-list>
 
     <ion-infinite-scroll
-      threshold="25%"
-      [disabled]="true"
       position="bottom"
       (ionInfinite)="onIonInfinite($event)"
     >
@@ -46,7 +44,7 @@
     <ion-row
       *ngFor="let item of searchData"
       class="searchRow ion-align-items-center"
-      (click)=" item.songTitle? onSongSelect(item) : navigationWithHerf(item.shareHerf)"
+      (click)=" item.songTitle? onSongSelect(item,'searchData') : navigationWithHerf(item.shareHerf)"
       tappable
     >
       <ion-col size="2">

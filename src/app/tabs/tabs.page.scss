@@ -13,7 +13,9 @@ ion-tab-button {
   color: #fff;
   font-size: small;
   img {
-    height: 55px;
+    height: 50px;
+    border: 1px;
+    border-radius: 5px;
   }
 
   .progress-bar {

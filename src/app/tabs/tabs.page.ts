@@ -10,12 +10,8 @@ import { PlayerModalPage } from '../modal/player-modal/player-modal.page';
 export class TabsPage {
   @ViewChild(IonTabs) tabs!: IonTabs;
   selected: string = '';
-  public progress = 0;
   isPlaying = false;
   currentTrack: any = '';
-  increment: number = 0;
-  duration: number = 8.9977324;
-  timer;
 
   constructor(
     private musicService: MusicService,
@@ -29,17 +25,9 @@ export class TabsPage {
       if (this.currentTrack.length !== 0) {
         //setting isPlaying to true
         this.isPlaying = true;
-
-        //setting progress bar interval after reciving new data
-        this.progress = 0;
-        this.increment = 0.01 / this.duration;
-        this.timer = setInterval(() => {
-          this.progress += this.increment;
-        }, 100);
       }
     });
   }
-
   //setting selected tab name for icon change
   setSelectedTab() {
     this.selected = String(this.tabs.getSelected());
@@ -50,7 +38,6 @@ export class TabsPage {
     if (this.isPlaying) {
       this.musicService.stopAudio();
       this.isPlaying = false;
-      clearInterval(this.timer);
     } else {
       this.musicService.playAudio();
       this.isPlaying = true;
@@ -61,8 +48,12 @@ export class TabsPage {
     const modal = await this.modalCtrl.create({
       component: PlayerModalPage,
       componentProps: {
-        currentTrack: this.currentTrack,
+        isPlaying: this.isPlaying,
       },
+    });
+
+    modal.onWillDismiss().then((data) => {
+      this.isPlaying = data.data;
     });
 
     modal.present();

@@ -9,7 +9,8 @@ import { InfiniteScrollCustomEvent } from '@ionic/angular';
   styleUrls: ['tab2.page.scss'],
 })
 export class Tab2Page implements OnInit {
-  tracks!: any[];
+  tracks: any[] = [];
+
   searchData!: any[];
   searchValue: string = '';
   currentPage: number = 1;
@@ -25,7 +26,6 @@ export class Tab2Page implements OnInit {
   getTopTracks() {
     this.musicService.getTopTracks(this.currentPage).subscribe((res) => {
       this.tracks = res;
-      console.log(this.tracks, 'tracks');
     });
   }
 
@@ -34,16 +34,13 @@ export class Tab2Page implements OnInit {
     this.searchValue = ev.detail.value;
     this.musicService.searchData(this.searchValue).subscribe((res: any) => {
       this.searchData = res;
-      console.log(this.searchData, this.searchValue);
     });
   }
 
   //playing song audio when song is selected
-  onSongSelect(track: music) {
-    //unloading current track
-    this.musicService.unLoadAudio();
+  async onSongSelect(track: music, listname: string) {
     //uploading selected track
-    this.musicService.preloadAudio(track);
+    await this.musicService.preloadAudio(track, listname);
     //play selected song
     this.musicService.playAudio();
   }

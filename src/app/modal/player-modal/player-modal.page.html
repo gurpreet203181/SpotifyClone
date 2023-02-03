@@ -1,4 +1,7 @@
-<ion-content class="ion-padding ion-text-center">
+<ion-content
+  [ngStyle]="{'--background': contentBackground}"
+  class="ion-padding ion-text-center"
+>
   <ion-grid fixed class="ion-padding">
     <!-- button -->
     <ion-row class="btnRow">
@@ -8,7 +11,7 @@
     </ion-row>
     <!-- image row -->
     <ion-row class="rowImg ion-justify-content-center">
-      <ion-col size="8">
+      <ion-col size="12">
         <img class="avatarImg" [src]="currentTrack.avatar" />
       </ion-col>
     </ion-row>
@@ -26,7 +29,10 @@
 
       <ion-col size="12">
         <div>
-          <ion-progress-bar class="progress" [value]="'0.2'"></ion-progress-bar>
+          <ion-progress-bar
+            class="progress"
+            [value]="progress"
+          ></ion-progress-bar>
         </div>
         <div class="time">
           <p>1:20</p>
@@ -38,13 +44,16 @@
     <!-- player buttons  -->
     <ion-row class="palyerRow">
       <ion-col class="ion-text-end" size="4">
-        <ion-icon name="play-back"></ion-icon>
+        <ion-icon name="play-back" (click)="prevAudio()"></ion-icon>
       </ion-col>
       <ion-col size="4">
-        <ion-icon name="play"></ion-icon>
+        <ion-icon
+          [name]="isPlaying ?  'pause' : 'play' "
+          (click)="togglePlay()"
+        ></ion-icon>
       </ion-col>
       <ion-col class="ion-text-start" size="4">
-        <ion-icon name="play-forward"></ion-icon>
+        <ion-icon name="play-forward" (click)="nextAudio()"></ion-icon>
       </ion-col>
     </ion-row>
 
