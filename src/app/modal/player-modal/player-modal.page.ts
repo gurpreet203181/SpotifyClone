@@ -1,5 +1,5 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { IonContent, ModalController } from '@ionic/angular';
+import { Component, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { MusicService } from 'src/app/services/music.service';
 
@@ -10,6 +10,7 @@ const vibrant = require('node-vibrant');
   templateUrl: './player-modal.page.html',
   styleUrls: ['./player-modal.page.scss'],
 })
+//FIXME: Player more Error fix
 export class PlayerModalPage implements OnInit {
   currentTrack: any = '';
   isPlaying;
@@ -19,7 +20,7 @@ export class PlayerModalPage implements OnInit {
   duration: number = 8.9977324;
   timer;
 
-  //[ngStyle] variabale for content background
+  //[ngStyle] variable for content background
   contentBackground!: string;
   subscription: Subscription | undefined;
 
@@ -64,7 +65,7 @@ export class PlayerModalPage implements OnInit {
     const rgb1 = this.imgPalette[3];
     const rgb2 = this.imgPalette[2];
 
-    //setting content tag background color with rgb values recived from vibrant
+    //setting content tag background color with rgb values received from vibrant
     this.contentBackground = `linear-gradient( 
 
     rgb(${rgb1.r},${rgb1.g},${rgb1.b}), 
@@ -87,7 +88,7 @@ export class PlayerModalPage implements OnInit {
   }
 
   setProgressBar() {
-    //setting progress bar interval after reciving new data
+    //setting progress bar interval after receiving new data
     this.progress = 0;
     this.increment = 0.01 / this.duration;
     this.timer = setInterval(() => {
